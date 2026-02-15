@@ -11,7 +11,7 @@ const Layout = () => {
             <div className="min-h-screen bg-mist text-graphite font-sans selection:bg-steel selection:text-white">
                 <CursorGlow />
                 <Navbar />
-                <main className="relative z-10 w-full overflow-hidden">
+                <main className="relative z-10 w-full">
                     <Outlet />
                 </main>
                 <Footer />
