@@ -16,9 +16,9 @@ const Navbar = () => {
     const isScrolled = scrollPosition > 50 || !isHome;
 
     const navItems = [
+        { name: 'Home', path: '/' },
         { name: 'About', path: '/about' },
         { name: 'Services', path: '/services' },
-        { name: 'Projects', path: '/projects' },
         { name: 'Contact', path: '/contact' },
     ];
 
