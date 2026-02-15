@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-mist text-graphite font-sans antialiased overflow-x-hidden;
+  }
+
+  /* Custom Scrollbar for Chrome, Safari and Opera */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-mineral hover:bg-steel/50 transition-colors rounded-full;
+  }
+}
+
+/* Specific Utilities for 'Stone & Steel' Look */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .glass-panel {
+    @apply bg-mist/60 backdrop-blur-md border-b border-white/10;
+  }
+}
