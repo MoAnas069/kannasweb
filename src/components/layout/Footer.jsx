@@ -8,9 +8,9 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
 
                     <div className="md:col-span-1">
-                        <div className="w-8 h-8 bg-mist flex items-center justify-center mb-6">
+                        <Link to="/" className="w-8 h-8 bg-mist flex items-center justify-center mb-6 hover:bg-white transition-colors">
                             <div className="w-3 h-3 bg-graphite transform rotate-45"></div>
-                        </div>
+                        </Link>
                         <p className="text-mist/40 text-sm leading-relaxed max-w-xs">
                             Providing advanced material recovery and logistics solutions for the world's most demanding industries.
                         </p>

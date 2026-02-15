@@ -9,9 +9,6 @@ const FeaturedProjects = () => {
                     <h2 className="text-4xl md:text-5xl font-display font-medium text-graphite">
                         Featured<br />Cases
                     </h2>
-                    <a href="/projects" className="text-sm font-medium tracking-widest text-graphite/60 hover:text-steel uppercase transition-colors hidden md:block">
-                        View All Projects
-                    </a>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -62,12 +59,6 @@ const FeaturedProjects = () => {
                             <span className="text-sm text-graphite/40 font-mono">02</span>
                         </div>
                     </div>
-                </div>
-
-                <div className="mt-16 md:hidden">
-                    <a href="/projects" className="text-sm font-medium tracking-widest text-graphite/60 hover:text-steel uppercase transition-colors">
-                        View All Projects
-                    </a>
                 </div>
             </div>
         </section>
