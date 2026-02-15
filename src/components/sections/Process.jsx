@@ -3,77 +3,61 @@ import { motion } from 'framer-motion';
 
 const steps = [
     {
-        number: "01",
-        title: "Assessment",
-        description: "Detailed analysis of material volume, composition, and logistical constraints."
+        title: "Assess",
+        description: "Site evaluation and material logic."
     },
     {
-        number: "02",
-        title: "Deployment",
-        description: "Rapid mobilization of specialized extraction teams and heavy machinery."
+        title: "Plan",
+        description: "Engineering the safe dismantling path."
     },
     {
-        number: "03",
-        title: "Recovery",
-        description: "High-yield processing with real-time weight and grade verification."
+        title: "Execute",
+        description: "Controlled demolition and extraction."
     },
     {
-        number: "04",
-        title: "Integration",
-        description: "Seamless re-entry of recovered materials into the supply chain."
+        title: "Recover",
+        description: "Sorting and processing capability."
+    },
+    {
+        title: "Process",
+        description: "Material preparation for market."
     }
 ];
 
 const Process = () => {
     return (
-        <section className="py-32 bg-mist border-b border-mineral overflow-hidden">
-            <div className="container mx-auto px-6">
-                <div className="mb-20">
+        <section className="py-32 bg-executive border-t border-b border-border-subtle">
+            <div className="container mx-auto px-6 md:px-12">
+                <div className="mb-20 max-w-2xl">
                     <h2 className="text-4xl md:text-5xl font-display font-medium text-graphite mb-6">
-                        Execution Framework
+                        A Disciplined Recovery Process
                     </h2>
-                    <div className="h-[1px] w-32 bg-steel"></div>
+                    <p className="text-xl text-graphite/60 font-light">
+                        Industrial buyers trust structured process.
+                    </p>
                 </div>
 
-                <div className="relative">
-                    {/* Connecting Line (Desktop) */}
-                    <div className="hidden md:block absolute top-12 left-0 w-full h-[1px] bg-mineral z-0"></div>
-                    <motion.div
-                        initial={{ scaleX: 0 }}
-                        whileInView={{ scaleX: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.5, ease: "easeInOut" }}
-                        className="hidden md:block absolute top-12 left-0 w-full h-[1px] bg-steel origin-left z-0"
-                    />
+                <div className="flex flex-col md:flex-row gap-8 md:gap-0 justify-between relative">
+                    {/* Horizontal Line for Desktop */}
+                    <div className="hidden md:block absolute top-[18px] left-0 w-full h-[1px] bg-border-subtle z-0"></div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-                        {steps.map((step, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: index * 0.2 }}
-                                className="relative z-10"
-                            >
-                                <div className="w-24 h-24 bg-mist border border-mineral flex items-center justify-center mb-8 relative md:mt-0">
-                                    {/* Dot on line */}
-                                    <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-steel rounded-full outline outline-4 outline-mist"></div>
+                    {steps.map((step, index) => (
+                        <div key={index} className="relative z-10 flex-1 group">
+                            {/* Dot */}
+                            <div className="w-10 h-10 rounded-full bg-executive border border-border-subtle flex items-center justify-center mb-6 z-10 relative group-hover:border-steel transition-colors duration-300">
+                                <div className="w-2 h-2 bg-graphite/20 rounded-full group-hover:bg-steel transition-colors duration-300"></div>
+                            </div>
 
-                                    <span className="text-3xl font-display font-light text-steel">
-                                        {step.number}
-                                    </span>
-                                </div>
-
-                                <h3 className="text-xl font-display text-graphite mb-4">
+                            <div className="pr-8">
+                                <h3 className="text-xl font-display font-medium text-graphite mb-2">
                                     {step.title}
                                 </h3>
-                                <p className="text-sm text-graphite/60 leading-relaxed font-light">
+                                <p className="text-sm text-graphite/50 leading-relaxed font-light">
                                     {step.description}
                                 </p>
-                            </motion.div>
-                        ))}
-                    </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>
