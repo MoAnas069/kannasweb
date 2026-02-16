@@ -42,7 +42,7 @@ const Button = ({
         whileTap: { y: 1, scale: 0.99, transition: { duration: 0.1 } }
     };
 
-    const Component = motion.create(as === 'link' ? Link : as);
+    const Component = motion(as === 'link' ? Link : as);
 
     const checkLoading = (e) => {
         if (isLoading) {
