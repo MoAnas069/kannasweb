@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import Button from '../ui/Button';
 
 const Hero = () => {
     return (
@@ -46,7 +47,7 @@ const Hero = () => {
                             transition={{ duration: 0.8, ease: "easeOut", delay: 0.35 }}
                             className="text-5xl md:text-7xl lg:text-8xl font-display font-medium text-graphite leading-[0.95] tracking-tight"
                         >
-                            <span className="text-steel">for Modern Industry.</span>
+                            <span className="text-brand-green">for Modern Industry.</span>
                         </motion.h1>
                     </div>
 
@@ -67,9 +68,9 @@ const Hero = () => {
                         transition={{ duration: 0.8, delay: 0.8 }}
                         className="flex items-center gap-6"
                     >
-                        <button className="group relative bg-graphite text-white px-10 py-5 overflow-hidden transition-all duration-300 hover:bg-steel">
-                            <span className="relative z-10 font-medium tracking-wide text-sm">REQUEST PARTNERSHIP</span>
-                        </button>
+                        <Button to="/contact" variant="primary" className="px-10 py-5">
+                            REQUEST PARTNERSHIP
+                        </Button>
                         <div className="flex items-center gap-4">
                             <div className="h-[1px] w-12 bg-graphite/20"></div>
                             <span className="text-sm tracking-widest text-graphite/60 uppercase">Global Operations</span>

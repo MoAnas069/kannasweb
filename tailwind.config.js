@@ -10,6 +10,7 @@ export default {
         mineral: "#E6EAED",
         graphite: "#222629",
         steel: "#5E7C82",
+        "brand-green": "#16A34A", // Green from logo (approximate, adjusted for vibrancy)
         champagne: "#C6CCD1",
         // New "Executive White" Theme
         executive: "#FAFAF8", // Primary background

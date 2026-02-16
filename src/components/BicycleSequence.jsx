@@ -1,17 +1,20 @@
+import { useScroll, useSpring, useTransform, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Button from "./ui/Button";
 
 // --- Configuration ---
 const FRAME_COUNT = 240; // 240 frames found in public/sequence
 const SCROLL_HEIGHT = "800vh"; // Increased scroll height for more frames
+const SPRING_CONFIG = { stiffness: 100, damping: 30, mass: 0.3 };
 
 // --- Text Beat Component ---
-const TextBeat = ({ children, className = "" }) => (
-    <div
-        className={`absolute inset-0 flex flex-col justify-center pointer-events-none transition-opacity duration-500 ${className}`}
+const TextBeat = ({ children, opacity, y, className = "" }) => (
+    <motion.div
+        style={{ opacity, y }}
+        className={`absolute inset-0 flex flex-col justify-center pointer-events-none ${className}`}
     >
         {children}
-    </div>
+    </motion.div>
 );
 
 export default function BicycleSequence() {
@@ -20,30 +23,34 @@ export default function BicycleSequence() {
     const [images, setImages] = useState([]);
     const [loadedCount, setLoadedCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
-    const [scrollProgress, setScrollProgress] = useState(0);
 
     // --- Scroll Logic ---
-    useEffect(() => {
-        const handleScroll = () => {
-            if (!containerRef.current) return;
-            const container = containerRef.current;
-            const rect = container.getBoundingClientRect();
-            const start = rect.top;
-            const height = rect.height - window.innerHeight;
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end end"],
+    });
 
-            // Calculate progress 0 to 1
-            let progress = Math.abs(start) / height;
-            if (start > 0) progress = 0;
-            if (progress > 1) progress = 1;
+    const smoothProgress = useSpring(scrollYProgress, SPRING_CONFIG);
+    const frameIndex = useTransform(smoothProgress, [0, 1], [0, FRAME_COUNT - 1]);
 
-            setScrollProgress(progress);
-        };
+    // --- Animation Beats ---
+    // Adjusted for 240 frames / longer scroll
+    // Beat A: 0-20%
+    const opacityA = useTransform(smoothProgress, [0, 0.05, 0.15, 0.2], [0, 1, 1, 0]);
+    const yA = useTransform(smoothProgress, [0, 0.2], [24, -24]);
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    // Beat B: 25-45%
+    const opacityB = useTransform(smoothProgress, [0.25, 0.3, 0.4, 0.45], [0, 1, 1, 0]);
+    const yB = useTransform(smoothProgress, [0.25, 0.45], [24, -24]);
 
-    const frameIndex = Math.min(FRAME_COUNT - 1, Math.floor(scrollProgress * (FRAME_COUNT - 1)));
+    // Beat C: 50-70%
+    const opacityC = useTransform(smoothProgress, [0.5, 0.55, 0.65, 0.7], [0, 1, 1, 0]);
+    const yC = useTransform(smoothProgress, [0.5, 0.7], [24, -24]);
+
+    // Beat D: 75-95%
+    const opacityD = useTransform(smoothProgress, [0.75, 0.8, 0.9, 0.95], [0, 1, 1, 0]);
+    const yD = useTransform(smoothProgress, [0.75, 0.95], [24, -24]);
+
 
     // --- Image Preloading ---
     useEffect(() => {
@@ -133,23 +140,27 @@ export default function BicycleSequence() {
             ctx.drawImage(img, ox, oy, dw, dh);
         };
 
-        requestAnimationFrame(() => render(frameIndex));
+        // 1. Reactive Rendering
+        const unsubscribeScroll = frameIndex.on("change", (latest) => {
+            requestAnimationFrame(() => render(latest));
+        });
 
+        // 2. Resize Handling
+        const resizeObserver = new ResizeObserver(() => {
+            requestAnimationFrame(() => render(frameIndex.get()));
+        });
+        resizeObserver.observe(canvas);
+
+        // Initial Draw
+        render(frameIndex.get());
+
+        return () => {
+            unsubscribeScroll();
+            resizeObserver.disconnect();
+        };
     }, [images, frameIndex]);
 
     const percent = Math.floor((loadedCount / FRAME_COUNT) * 100);
-
-    // Simple Opacity Logic based on progress
-    const getOpacity = (start, peak, end) => {
-        if (scrollProgress < start || scrollProgress > end) return 0;
-        if (scrollProgress < peak) return (scrollProgress - start) / (peak - start);
-        return 1 - (scrollProgress - peak) / (end - peak);
-    };
-
-    const opacityA = getOpacity(0, 0.05, 0.2);
-    const opacityB = getOpacity(0.25, 0.35, 0.45);
-    const opacityC = getOpacity(0.5, 0.6, 0.7);
-    const opacityD = getOpacity(0.75, 0.85, 0.95);
 
     return (
         <div ref={containerRef} className="relative w-full bg-executive" style={{ height: SCROLL_HEIGHT }}>
@@ -162,9 +173,10 @@ export default function BicycleSequence() {
                     <div className="absolute inset-0 flex items-center justify-center bg-executive z-50 transition-opacity duration-500">
                         <div className="flex flex-col items-center gap-4">
                             <div className="h-[1px] w-32 bg-graphite/10 overflow-hidden">
-                                <div
-                                    className="h-full bg-graphite/80 transition-all duration-100 ease-out"
-                                    style={{ width: `${percent}%` }}
+                                <motion.div
+                                    className="h-full bg-graphite/80"
+                                    initial={{ width: 0 }}
+                                    animate={{ width: `${percent}%` }}
                                 />
                             </div>
                             <div className="text-graphite/40 font-display text-[10px] tracking-[0.2em]">
@@ -178,17 +190,17 @@ export default function BicycleSequence() {
                 <div className="absolute inset-0 container mx-auto px-6 md:px-12 pointer-events-none">
 
                     {/* Beat A */}
-                    {opacityA > 0 && <TextBeat className="items-center text-center" style={{ opacity: opacityA }}>
+                    <TextBeat opacity={opacityA} y={yA} className="items-center text-center">
                         <h1 className="text-5xl md:text-8xl font-display font-medium tracking-tight text-graphite">
                             Precision<br />Redefined.
                         </h1>
                         <p className="mt-8 text-xs md:text-sm text-graphite/40 uppercase tracking-[0.2em] font-medium">
                             Scroll to explore
                         </p>
-                    </TextBeat>}
+                    </TextBeat>
 
                     {/* Beat B */}
-                    {opacityB > 0 && <TextBeat className="items-start text-left pl-4 md:pl-20" style={{ opacity: opacityB }}>
+                    <TextBeat opacity={opacityB} y={yB} className="items-start text-left pl-4 md:pl-20">
                         <div className="max-w-md border-l border-graphite/10 pl-6">
                             <h2 className="text-2xl md:text-4xl text-graphite mb-4 font-display font-medium">Intelligent Separation</h2>
                             <p className="text-base md:text-lg text-graphite/60 leading-relaxed font-light">
@@ -197,10 +209,10 @@ export default function BicycleSequence() {
                                 We remove the noise to reveal the engineering.
                             </p>
                         </div>
-                    </TextBeat>}
+                    </TextBeat>
 
                     {/* Beat C */}
-                    {opacityC > 0 && <TextBeat className="items-end text-right pr-4 md:pr-20" style={{ opacity: opacityC }}>
+                    <TextBeat opacity={opacityC} y={yC} className="items-end text-right pr-4 md:pr-20">
                         <div className="max-w-md border-r border-graphite/10 pr-6">
                             <h2 className="text-2xl md:text-4xl text-graphite mb-4 font-display font-medium">System Architecture</h2>
                             <p className="text-base md:text-lg text-graphite/60 leading-relaxed font-light">
@@ -209,23 +221,15 @@ export default function BicycleSequence() {
                                 Designed for absolute performance.
                             </p>
                         </div>
-                    </TextBeat>}
+                    </TextBeat>
 
                     {/* Beat D */}
-                    {opacityD > 0 && <TextBeat className="items-center text-center" style={{ opacity: opacityD }}>
+                    <TextBeat opacity={opacityD} y={yD} className="items-center text-center">
                         <h2 className="text-3xl md:text-6xl text-graphite mb-8 font-display font-medium">
                             Order Complexity.
                         </h2>
-                        <Button
-                            variant="primary"
-                            size="lg"
-                            className="shadow-xl shadow-graphite/20 pointer-events-auto"
-                            as="link" // Use link as Button supports it
-                            to="/contact"
-                        >
-                            Configure Build
-                        </Button>
-                    </TextBeat>}
+                        <Button to="/contact" variant="primary">Configure Build</Button>
+                    </TextBeat>
 
                 </div>
             </div>

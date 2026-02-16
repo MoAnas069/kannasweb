@@ -28,28 +28,33 @@ const Solutions = () => {
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
+                            whileHover={{ y: -5 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className="group cursor-pointer"
+                            transition={{ duration: 0.4, delay: index * 0.1 }}
+                            className="group relative p-8 border border-border-subtle bg-white hover:border-steel/30 hover:shadow-xl hover:shadow-mineral/10 transition-all duration-300 rounded-lg overflow-hidden"
                         >
-                            <div className="h-[1px] w-full bg-border-subtle mb-8 group-hover:bg-steel transition-colors duration-500"></div>
+                            <div className="absolute top-0 left-0 w-1 h-0 bg-steel group-hover:h-full transition-all duration-500 ease-out" />
 
-                            <div className="flex justify-between items-start mb-4">
-                                <h3 className="text-3xl font-display font-medium text-graphite group-hover:text-steel transition-colors duration-300">
+                            <div className="flex justify-between items-start mb-6">
+                                <h3 className="text-2xl font-display font-medium text-graphite group-hover:text-brand-green transition-colors duration-300">
                                     {service.title}
                                 </h3>
-                                <ArrowUpRight className="text-border-subtle group-hover:text-steel transition-all duration-300 opacity-0 group-hover:opacity-100" size={24} />
+                                <div className="p-2 bg-mist rounded-full group-hover:bg-brand-green group-hover:text-white transition-colors duration-300">
+                                    <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:rotate-45" size={20} />
+                                </div>
                             </div>
 
-                            <p className="text-lg text-graphite/60 font-light leading-relaxed max-w-sm">
+                            <p className="text-graphite/60 font-light leading-relaxed mb-8">
                                 {service.description}
                             </p>
+
+                            <div className="w-full h-[1px] bg-border-subtle group-hover:bg-steel/30 transition-colors duration-300" />
                         </motion.div>
                     ))}
                 </div>
 
             </div>
-        </section>
+        </section >
     );
 };
 

@@ -1,86 +1,67 @@
-```
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Loader2 } from 'lucide-react';
 import clsx from 'clsx';
+import { Loader2 } from 'lucide-react';
 
 const Button = ({
-    variant = 'primary', // 'primary', 'secondary', 'ghost'
-    size = 'md', // 'sm', 'md', 'lg'
-    isLoading = false,
-    leftIcon,
-    rightIcon,
     children,
-    className,
-    as = 'button', // 'button', 'a', 'link'
-    href,
+    variant = 'primary', // primary, secondary, outline
     to,
     onClick,
+    className,
+    isLoading = false,
+    disabled = false,
+    type = 'button',
     ...props
 }) => {
-    
-    // Base Styles
-    const baseStyles = "inline-flex items-center justify-center font-medium tracking-wider uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-graphite/20 hover:-translate-y-0.5 active:translate-y-0 active:scale-95";
-    
-    // Variants
+    // Base styles for all buttons
+    const baseStyles = "relative inline-flex items-center justify-center font-medium tracking-wide border transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-steel/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none active:scale-[0.99]";
+
+    // Variant-specific styles
     const variants = {
-        primary: "bg-graphite text-white hover:bg-steel shadow-sm",
-        secondary: "bg-transparent border border-graphite/20 text-graphite hover:bg-graphite/5 hover:border-graphite/40",
-        ghost: "bg-transparent text-graphite/60 hover:text-steel hover:bg-graphite/5"
+        primary: "bg-graphite text-white border-transparent hover:bg-brand-green hover:text-white shadow-sm hover:shadow-md hover:-translate-y-[1px] active:translate-y-[1px]",
+        secondary: "bg-transparent text-graphite border-border-subtle hover:bg-concrete hover:border-brand-green shadow-none hover:-translate-y-[1px] active:translate-y-[1px]",
+        outline: "bg-transparent text-white border-white/20 hover:bg-white/10 hover:border-white/40 shadow-none hover:-translate-y-[1px] active:translate-y-[1px]", // For dark backgrounds
+        white: "bg-white text-graphite border-transparent hover:bg-mist shadow-sm hover:shadow-md hover:-translate-y-[1px] active:translate-y-[1px]",
+        link: "bg-transparent text-brand-green border-b border-graphite rounded-none px-0 py-1 hover:text-graphite hover:border-steel shadow-none hover:translate-y-0 active:translate-y-0 h-auto tracking-widest text-xs uppercase"
     };
 
-    // Sizes
-    const sizes = {
-        sm: "text-xs px-4 py-2 gap-2 rounded-sm",
-        md: "text-xs px-6 py-3 gap-3 rounded-md",
-        lg: "text-sm px-8 py-4 gap-4 rounded-md"
-    };
+    // Size/Spacing
+    const sizes = "px-8 py-4 text-sm uppercase tracking-[0.1em] rounded-md"; // Slightly rounded for premium feel, not full pill unless specified
 
-    const checkLoading = (e) => {
-        if (isLoading) {
-            e.preventDefault();
-            return;
-        }
-        if (onClick) onClick(e);
-    };
+    const classes = clsx(
+        baseStyles,
+        variants[variant],
+        variant !== 'link' && sizes,
+        className
+    );
 
-    const commonProps = {
-        className: clsx(baseStyles, variants[variant], sizes[size], className),
-        onClick: checkLoading,
-        ...props
-    };
+    // Initial and tap animation props for Framer Motion (optional, but CSS transition is preferred for simple effects as per prompt)
+    // The prompt asked for "Apple-level" simplicity, so CSS transitions (duration-200) handled in classes are best.
+    // However, the prompt specifically asked for "translateY(1px)" on click. We can achieve this with active: classes.
 
-    if (as === 'link' && to) {
+    // Logic to render Link or button
+    if (to && !disabled) {
         return (
-            <Link to={to} {...commonProps}>
-                {isLoading && <Loader2 className="animate-spin mr-2" size={size === 'lg' ? 20 : 16} />}
-                {!isLoading && leftIcon && <span className="mr-2 flex-shrink-0">{leftIcon}</span>}
-                <span>{children}</span>
-                {!isLoading && rightIcon && <span className="ml-2 flex-shrink-0">{rightIcon}</span>}
+            <Link to={to} className={classes} {...props}>
+                {children}
             </Link>
         );
     }
 
-    if (as === 'a' && href) {
-        return (
-            <a href={href} {...commonProps}>
-                {isLoading && <Loader2 className="animate-spin mr-2" size={size === 'lg' ? 20 : 16} />}
-                {!isLoading && leftIcon && <span className="mr-2 flex-shrink-0">{leftIcon}</span>}
-                <span>{children}</span>
-                {!isLoading && rightIcon && <span className="ml-2 flex-shrink-0">{rightIcon}</span>}
-            </a>
-        );
-    }
-
     return (
-        <button disabled={isLoading} {...commonProps}>
-             {isLoading && <Loader2 className="animate-spin mr-2" size={size === 'lg' ? 20 : 16} />}
-            {!isLoading && leftIcon && <span className="mr-2 flex-shrink-0">{leftIcon}</span>}
-            <span>{children}</span>
-            {!isLoading && rightIcon && <span className="ml-2 flex-shrink-0">{rightIcon}</span>}
+        <button
+            type={type}
+            className={classes}
+            onClick={onClick}
+            disabled={disabled || isLoading}
+            {...props}
+        >
+            {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+            {children}
         </button>
     );
 };
 
 export default Button;
-```

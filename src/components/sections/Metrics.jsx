@@ -15,19 +15,24 @@ const MetricItem = ({ label, value, suffix = "" }) => {
     }, [isInView, numericValue, spring]);
 
     return (
-        <div ref={ref} className="flex flex-col gap-2">
-            <div className="flex items-baseline gap-1">
-                <motion.span className="text-5xl md:text-7xl font-display font-medium text-graphite tracking-tight">
+        <motion.div
+            ref={ref}
+            className="flex flex-col gap-2 cursor-default"
+            whileHover={{ y: -5 }}
+            transition={{ type: "spring", stiffness: 300 }}
+        >
+            <div className="flex items-baseline gap-1 group">
+                <motion.span className="text-5xl md:text-7xl font-display font-medium text-graphite tracking-tight group-hover:text-steel transition-colors duration-300">
                     {display}
                 </motion.span>
-                <span className="text-5xl md:text-7xl font-display font-medium text-steel tracking-tight">
+                <span className="text-5xl md:text-7xl font-display font-medium text-steel tracking-tight pt-2">
                     {suffix}
                 </span>
             </div>
-            <p className="text-sm font-medium tracking-widest text-graphite/40 uppercase mt-2">
+            <p className="text-sm font-medium tracking-widest text-graphite/40 uppercase mt-2 group-hover:text-graphite/60 transition-colors duration-300">
                 {label}
             </p>
-        </div>
+        </motion.div>
     );
 };
 

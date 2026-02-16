@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import useScrollPosition from '../../hooks/useScrollPosition';
 import { Menu, X } from 'lucide-react';
 import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
 import Button from '../ui/Button';
 
 const Navbar = () => {
@@ -33,22 +34,17 @@ const Navbar = () => {
         >
             <div className="container mx-auto px-6 h-full flex items-center justify-between">
                 {/* Logo Area */}
-                <Link to="/" className="flex items-center gap-2 group cursor-pointer">
-                    {/* Abstract minimalist logo mark */}
-                    <div className={clsx(
-                        "w-8 h-8 flex items-center justify-center transition-colors duration-300",
-                        isScrolled ? "bg-graphite" : "bg-white"
-                    )}>
-                        <div className={clsx(
-                            "w-3 h-3 transform rotate-45 transition-colors duration-300",
-                            isScrolled ? "bg-mist" : "bg-graphite"
-                        )}></div>
-                    </div>
+                <Link to="/" className="flex items-center gap-3 group cursor-pointer">
+                    <img
+                        src="/logo.jpeg"
+                        alt="Kannasum Kadalasum Logo"
+                        className="w-12 h-12 object-contain rounded-full"
+                    />
                     <span className={clsx(
                         "font-display font-bold tracking-tight text-xl transition-colors duration-300",
                         isScrolled ? "text-graphite" : "text-white"
                     )}>
-                        STONE & STEEL
+                        KANNASUM KADALASUM
                     </span>
                 </Link>
 
@@ -69,17 +65,11 @@ const Navbar = () => {
                         </Link>
                     ))}
                     <Button
-                        as="link"
                         to="/contact"
-                        size="sm"
-                        className={clsx(
-                            "transition-colors duration-500",
-                            isScrolled
-                                ? "bg-graphite text-mist hover:bg-steel"
-                                : "bg-white text-graphite hover:bg-white/90"
-                        )}
+                        variant={isScrolled ? 'primary' : 'white'}
+                        className="px-6 py-2 text-sm"
                     >
-                        Partner Access
+                        GET A QUOTE
                     </Button>
                 </div>
 
@@ -98,27 +88,37 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu Overlay */}
-            {isMenuOpen && (
-                <div
-                    className="absolute top-full left-0 w-full bg-mist border-b border-mineral p-6 shadow-xl md:hidden animate-in slide-in-from-top-2 duration-300"
-                >
-                    <div className="flex flex-col gap-4 items-center">
-                        {navItems.map((item) => (
-                            <Link
-                                key={item.name}
-                                to={item.path}
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="absolute top-full left-0 w-full bg-mist border-b border-mineral p-6 shadow-xl md:hidden"
+                    >
+                        <div className="flex flex-col gap-4 items-center">
+                            {navItems.map((item) => (
+                                <Link
+                                    key={item.name}
+                                    to={item.path}
+                                    onClick={() => setIsMenuOpen(false)}
+                                    className="text-lg font-display font-medium text-graphite hover:text-steel"
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
+                            <Button
+                                to="/contact"
                                 onClick={() => setIsMenuOpen(false)}
-                                className="text-lg font-display font-medium text-graphite hover:text-steel"
+                                variant="primary"
+                                className="w-full mt-4"
                             >
-                                {item.name}
-                            </Link>
-                        ))}
-                        <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="w-full bg-graphite text-mist py-3 mt-4 text-sm tracking-wide text-center">
-                            PARTNER ACCESS
-                        </Link>
-                    </div>
-                </div>
-            )}
+                                GET A QUOTE
+                            </Button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </nav>
     );
 };

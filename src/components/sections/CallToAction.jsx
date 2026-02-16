@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import Button from '../ui/Button';
 
 const CallToAction = () => {
     return (
@@ -26,15 +27,9 @@ const CallToAction = () => {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="flex justify-center"
                 >
-                    <Button
-                        variant="primary"
-                        size="lg"
-                        to="/contact"
-                        as="link"
-                        rightIcon={<ArrowRight size={20} />}
-                        className="bg-graphite text-white hover:bg-steel transition-all duration-500"
-                    >
+                    <Button to="/contact" variant="primary" className="flex items-center gap-4">
                         Start a Conversation
+                        <ArrowRight className="group-hover:translate-x-1 transition-transform duration-300" size={20} />
                     </Button>
                 </motion.div>
             </div>

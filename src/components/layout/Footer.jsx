@@ -8,11 +8,15 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
 
                     <div className="md:col-span-1">
-                        <Link to="/" className="w-8 h-8 bg-mist flex items-center justify-center mb-6 hover:bg-white transition-colors">
-                            <div className="w-3 h-3 bg-graphite transform rotate-45"></div>
+                        <Link to="/" className="block mb-6">
+                            <img
+                                src="/logo.jpeg"
+                                alt="Kannasum Kadalasum Logo"
+                                className="w-16 h-16 object-contain rounded-full opacity-90 hover:opacity-100 transition-opacity"
+                            />
                         </Link>
                         <p className="text-mist/40 text-sm leading-relaxed max-w-xs">
-                            Providing advanced material recovery and logistics solutions for the world's most demanding industries.
+                            Kannasum Kadalasum LLP: Turning trash into cash with advanced material recovery solutions.
                         </p>
                     </div>
 
@@ -39,16 +43,16 @@ const Footer = () => {
                     <div>
                         <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-8">Contact</h4>
                         <ul className="space-y-4 text-sm text-mist/60">
-                            <li>London, UK</li>
-                            <li>+44 (0) 20 7123 4567</li>
-                            <li>partnerships@stoneandsteel.com</li>
+                            <li>Kothakurussi</li>
+                            <li>8943077661 | 9656487208</li>
+                            <li>info@kannasumkadalasum.com</li>
                         </ul>
                     </div>
 
                 </div>
 
                 <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-mist/30">
-                    <p>&copy; {new Date().getFullYear()} Stone & Steel. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} Kannasum Kadalasum LLP. All rights reserved.</p>
                     <div className="flex gap-8 mt-4 md:mt-0">
                         <Link to="/" className="hover:text-white transition-colors">Privacy Policy</Link>
                         <Link to="/" className="hover:text-white transition-colors">Terms of Service</Link>
