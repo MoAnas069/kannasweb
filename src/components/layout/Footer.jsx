@@ -24,19 +24,17 @@ const Footer = () => {
                         <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-8">Company</h4>
                         <ul className="space-y-4 text-sm text-mist/60">
                             <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
-                            <li><Link to="/contact" className="hover:text-white transition-colors">Leadership</Link></li>
-                            <li><Link to="/contact" className="hover:text-white transition-colors">Careers</Link></li>
-                            <li><Link to="/contact" className="hover:text-white transition-colors">Sustainability</Link></li>
+                            <li><a href="/#process" className="hover:text-white transition-colors">Our Process</a></li>
+                            <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
                         </ul>
                     </div>
 
                     <div>
                         <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-8">Solutions</h4>
                         <ul className="space-y-4 text-sm text-mist/60">
-                            <li><Link to="/services" className="hover:text-white transition-colors">Material Recovery</Link></li>
-                            <li><Link to="/services" className="hover:text-white transition-colors">Logistics</Link></li>
-                            <li><Link to="/services" className="hover:text-white transition-colors">Infrastructure</Link></li>
-                            <li><Link to="/services" className="hover:text-white transition-colors">Consulting</Link></li>
+                            <li><Link to="/services" className="hover:text-white transition-colors">Scrap Collection</Link></li>
+                            <li><Link to="/services" className="hover:text-white transition-colors">Demolition Services</Link></li>
+                            <li><Link to="/services" className="hover:text-white transition-colors">Annual Contracts</Link></li>
                         </ul>
                     </div>
 
