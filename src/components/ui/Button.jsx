@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import clsx from 'clsx';
 
+const MotionButton = motion.button;
+const MotionLink = motion(Link);
+const MotionAnchor = motion.a;
+
 const Button = ({
     variant = 'primary', // 'primary', 'secondary', 'ghost'
     size = 'md', // 'sm', 'md', 'lg'
@@ -42,7 +46,9 @@ const Button = ({
         whileTap: { y: 1, scale: 0.99, transition: { duration: 0.1 } }
     };
 
-    const Component = motion(as === 'link' ? Link : as);
+    let Component = MotionButton;
+    if (as === 'link') Component = MotionLink;
+    else if (as === 'a') Component = MotionAnchor;
 
     const checkLoading = (e) => {
         if (isLoading) {
