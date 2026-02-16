@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import useScrollPosition from '../../hooks/useScrollPosition';
 import { Menu, X } from 'lucide-react';
 import clsx from 'clsx';
-import { AnimatePresence, motion } from 'framer-motion';
 import Button from '../ui/Button';
 
 const Navbar = () => {
@@ -99,32 +98,27 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu Overlay */}
-            <AnimatePresence>
-                {isMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="absolute top-full left-0 w-full bg-mist border-b border-mineral p-6 shadow-xl md:hidden"
-                    >
-                        <div className="flex flex-col gap-4 items-center">
-                            {navItems.map((item) => (
-                                <Link
-                                    key={item.name}
-                                    to={item.path}
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="text-lg font-display font-medium text-graphite hover:text-steel"
-                                >
-                                    {item.name}
-                                </Link>
-                            ))}
-                            <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="w-full bg-graphite text-mist py-3 mt-4 text-sm tracking-wide text-center">
-                                PARTNER ACCESS
+            {isMenuOpen && (
+                <div
+                    className="absolute top-full left-0 w-full bg-mist border-b border-mineral p-6 shadow-xl md:hidden animate-in slide-in-from-top-2 duration-300"
+                >
+                    <div className="flex flex-col gap-4 items-center">
+                        {navItems.map((item) => (
+                            <Link
+                                key={item.name}
+                                to={item.path}
+                                onClick={() => setIsMenuOpen(false)}
+                                className="text-lg font-display font-medium text-graphite hover:text-steel"
+                            >
+                                {item.name}
                             </Link>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                        ))}
+                        <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="w-full bg-graphite text-mist py-3 mt-4 text-sm tracking-wide text-center">
+                            PARTNER ACCESS
+                        </Link>
+                    </div>
+                </div>
+            )}
         </nav>
     );
 };
