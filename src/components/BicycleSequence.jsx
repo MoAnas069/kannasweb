@@ -134,7 +134,7 @@ export default function BicycleSequence() {
                 oy = (ch - dh) / 2;
             }
 
-            ctx.fillStyle = "#050505";
+            ctx.fillStyle = "#FAFAF8";
             ctx.fillRect(0, 0, cw, ch);
             ctx.drawImage(img, ox, oy, dw, dh);
         };
@@ -162,23 +162,23 @@ export default function BicycleSequence() {
     const percent = Math.floor((loadedCount / FRAME_COUNT) * 100);
 
     return (
-        <div ref={containerRef} className="relative w-full bg-[#050505]" style={{ height: SCROLL_HEIGHT }}>
-            <div className="sticky top-0 w-full h-screen overflow-hidden bg-[#050505]">
+        <div ref={containerRef} className="relative w-full bg-executive" style={{ height: SCROLL_HEIGHT }}>
+            <div className="sticky top-0 w-full h-screen overflow-hidden bg-executive">
 
                 <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
                 {/* Loading UI */}
                 {isLoading && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-[#050505] z-50 transition-opacity duration-500">
+                    <div className="absolute inset-0 flex items-center justify-center bg-executive z-50 transition-opacity duration-500">
                         <div className="flex flex-col items-center gap-4">
-                            <div className="h-[1px] w-32 bg-white/10 overflow-hidden">
+                            <div className="h-[1px] w-32 bg-graphite/10 overflow-hidden">
                                 <motion.div
-                                    className="h-full bg-white/80"
+                                    className="h-full bg-graphite/80"
                                     initial={{ width: 0 }}
                                     animate={{ width: `${percent}%` }}
                                 />
                             </div>
-                            <div className="text-white/40 font-mono text-[10px] tracking-[0.2em]">
+                            <div className="text-graphite/40 font-display text-[10px] tracking-[0.2em]">
                                 SYSTEM INITIALIZING {percent}%
                             </div>
                         </div>
@@ -190,19 +190,19 @@ export default function BicycleSequence() {
 
                     {/* Beat A */}
                     <TextBeat opacity={opacityA} y={yA} className="items-center text-center">
-                        <h1 className="text-5xl md:text-8xl font-semibold tracking-tight text-white/90">
+                        <h1 className="text-5xl md:text-8xl font-display font-medium tracking-tight text-graphite">
                             Precision<br />Redefined.
                         </h1>
-                        <p className="mt-8 text-xs md:text-sm text-white/40 uppercase tracking-[0.2em]">
+                        <p className="mt-8 text-xs md:text-sm text-graphite/40 uppercase tracking-[0.2em] font-medium">
                             Scroll to explore
                         </p>
                     </TextBeat>
 
                     {/* Beat B */}
                     <TextBeat opacity={opacityB} y={yB} className="items-start text-left pl-4 md:pl-20">
-                        <div className="max-w-md border-l border-white/10 pl-6">
-                            <h2 className="text-2xl md:text-4xl text-white/80 mb-4 font-light">Intelligent Separation</h2>
-                            <p className="text-base md:text-lg text-white/50 leading-relaxed font-light">
+                        <div className="max-w-md border-l border-graphite/10 pl-6">
+                            <h2 className="text-2xl md:text-4xl text-graphite mb-4 font-display font-medium">Intelligent Separation</h2>
+                            <p className="text-base md:text-lg text-graphite/60 leading-relaxed font-light">
                                 Every component is isolated in a frictionless void.
                                 <br />
                                 We remove the noise to reveal the engineering.
@@ -212,9 +212,9 @@ export default function BicycleSequence() {
 
                     {/* Beat C */}
                     <TextBeat opacity={opacityC} y={yC} className="items-end text-right pr-4 md:pr-20">
-                        <div className="max-w-md border-r border-white/10 pr-6">
-                            <h2 className="text-2xl md:text-4xl text-white/80 mb-4 font-light">System Architecture</h2>
-                            <p className="text-base md:text-lg text-white/50 leading-relaxed font-light">
+                        <div className="max-w-md border-r border-graphite/10 pr-6">
+                            <h2 className="text-2xl md:text-4xl text-graphite mb-4 font-display font-medium">System Architecture</h2>
+                            <p className="text-base md:text-lg text-graphite/60 leading-relaxed font-light">
                                 Advanced composite materials meet aerospace-grade tolerance.
                                 <br />
                                 Designed for absolute performance.
@@ -224,12 +224,12 @@ export default function BicycleSequence() {
 
                     {/* Beat D */}
                     <TextBeat opacity={opacityD} y={yD} className="items-center text-center">
-                        <h2 className="text-3xl md:text-6xl text-white/90 mb-8 font-medium">
+                        <h2 className="text-3xl md:text-6xl text-graphite mb-8 font-display font-medium">
                             Order Complexity.
                         </h2>
-                        <button className="pointer-events-auto group relative px-8 py-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-full overflow-hidden hover:border-white/30 transition-all">
-                            <span className="relative z-10 text-xs text-white/90 uppercase tracking-[0.2em] group-hover:text-white">Configure Build</span>
-                            <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <button className="pointer-events-auto group relative px-8 py-4 bg-white border border-graphite/10 rounded-full overflow-hidden hover:border-steel transition-all shadow-sm">
+                            <span className="relative z-10 text-xs text-graphite uppercase tracking-[0.2em] group-hover:text-white transition-colors duration-500">Configure Build</span>
+                            <div className="absolute inset-0 bg-graphite opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         </button>
                     </TextBeat>
 
