@@ -25,7 +25,7 @@ const services = [
 
 const Solutions = () => {
     return (
-        <section className="py-32 bg-executive">
+        <section className="py-20 md:py-32 bg-executive">
             <div className="container mx-auto px-6 md:px-12">
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-24">

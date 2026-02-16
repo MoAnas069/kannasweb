@@ -8,9 +8,9 @@ const About = () => {
         <div className="bg-executive min-h-screen text-graphite">
 
             {/* Header */}
-            <div className="pt-32 pb-20 px-6 container mx-auto">
+            <div className="pt-24 md:pt-32 pb-20 px-6 container mx-auto">
                 <ScrollReveal>
-                    <h1 className="text-5xl md:text-7xl font-display font-medium mb-12 text-graphite leading-tight">
+                    <h1 className="text-4xl sm:text-5xl md:text-7xl font-display font-medium mb-12 text-graphite leading-tight">
                         Engineered to Handle<br />Complex Industrial Demands
                     </h1>
                 </ScrollReveal>
@@ -36,8 +36,8 @@ const About = () => {
             </ScrollReveal>
 
             {/* Content Grid */}
-            <div className="py-24 container mx-auto px-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-32">
+            <div className="py-16 md:py-24 container mx-auto px-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 lg:gap-32">
 
                     <ScrollReveal delay={0.4}>
                         <h3 className="text-2xl font-display font-medium mb-6">Operational Philosophy</h3>

@@ -32,14 +32,14 @@ const Services = () => {
 
     return (
         <div className="bg-executive min-h-screen text-graphite">
-            <div className="pt-32 pb-12 px-6 container mx-auto">
+            <div className="pt-24 md:pt-32 pb-12 px-6 container mx-auto">
                 <ScrollReveal>
-                    <h1 className="text-5xl md:text-7xl font-display font-medium mb-16 text-graphite">
+                    <h1 className="text-4xl sm:text-5xl md:text-7xl font-display font-medium mb-12 md:mb-16 text-graphite">
                         Industrial Services
                     </h1>
                 </ScrollReveal>
 
-                <div className="space-y-24">
+                <div className="space-y-16 md:space-y-24">
                     {serviceList.map((service, index) => (
                         <ScrollReveal key={index} delay={index * 0.1}>
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-graphite/10 pt-12 items-start">

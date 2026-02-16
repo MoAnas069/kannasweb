@@ -13,7 +13,7 @@ const Hero = () => {
     const opacity = useTransform(scrollY, [0, 500], [1, 0]);
 
     return (
-        <section ref={containerRef} className="relative h-screen min-h-[800px] w-full overflow-hidden flex items-center bg-graphite text-white">
+        <section ref={containerRef} className="relative h-[85vh] min-h-[600px] md:h-screen md:min-h-[800px] w-full overflow-hidden flex items-center bg-graphite text-white">
 
             {/* Background Image Layer */}
             <motion.div
@@ -39,7 +39,7 @@ const Hero = () => {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="max-w-4xl"
                 >
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-medium leading-tight tracking-tight mb-8">
+                    <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-medium leading-tight tracking-tight mb-8">
                         Sustainable <br />
                         <span className="text-brand-green">Material Recovery</span> <br />
                         <span className="text-white">for Modern Industry.</span>
