@@ -1,12 +1,8 @@
+```
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import clsx from 'clsx';
-
-const MotionButton = motion.button;
-const MotionLink = motion(Link);
-const MotionAnchor = motion.a;
 
 const Button = ({
     variant = 'primary', // 'primary', 'secondary', 'ghost'
@@ -16,16 +12,16 @@ const Button = ({
     rightIcon,
     children,
     className,
-    as = 'button', // 'button', 'a', Link
+    as = 'button', // 'button', 'a', 'link'
     href,
     to,
     onClick,
     ...props
 }) => {
-
+    
     // Base Styles
-    const baseStyles = "inline-flex items-center justify-center font-medium tracking-wider uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-graphite/20";
-
+    const baseStyles = "inline-flex items-center justify-center font-medium tracking-wider uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-graphite/20 hover:-translate-y-0.5 active:translate-y-0 active:scale-95";
+    
     // Variants
     const variants = {
         primary: "bg-graphite text-white hover:bg-steel shadow-sm",
@@ -40,16 +36,6 @@ const Button = ({
         lg: "text-sm px-8 py-4 gap-4 rounded-md"
     };
 
-    // Motion Properties for Subtle "Engineered" Feel
-    const motionProps = {
-        whileHover: { y: -1, transition: { duration: 0.2, ease: [0.4, 0, 0.2, 1] } },
-        whileTap: { y: 1, scale: 0.99, transition: { duration: 0.1 } }
-    };
-
-    let Component = MotionButton;
-    if (as === 'link') Component = MotionLink;
-    else if (as === 'a') Component = MotionAnchor;
-
     const checkLoading = (e) => {
         if (isLoading) {
             e.preventDefault();
@@ -58,24 +44,43 @@ const Button = ({
         if (onClick) onClick(e);
     };
 
+    const commonProps = {
+        className: clsx(baseStyles, variants[variant], sizes[size], className),
+        onClick: checkLoading,
+        ...props
+    };
+
+    if (as === 'link' && to) {
+        return (
+            <Link to={to} {...commonProps}>
+                {isLoading && <Loader2 className="animate-spin mr-2" size={size === 'lg' ? 20 : 16} />}
+                {!isLoading && leftIcon && <span className="mr-2 flex-shrink-0">{leftIcon}</span>}
+                <span>{children}</span>
+                {!isLoading && rightIcon && <span className="ml-2 flex-shrink-0">{rightIcon}</span>}
+            </Link>
+        );
+    }
+
+    if (as === 'a' && href) {
+        return (
+            <a href={href} {...commonProps}>
+                {isLoading && <Loader2 className="animate-spin mr-2" size={size === 'lg' ? 20 : 16} />}
+                {!isLoading && leftIcon && <span className="mr-2 flex-shrink-0">{leftIcon}</span>}
+                <span>{children}</span>
+                {!isLoading && rightIcon && <span className="ml-2 flex-shrink-0">{rightIcon}</span>}
+            </a>
+        );
+    }
+
     return (
-        <Component
-            {...motionProps}
-            className={clsx(baseStyles, variants[variant], sizes[size], className)}
-            onClick={checkLoading}
-            href={as === 'a' ? href : undefined}
-            to={as === 'link' ? to : undefined}
-            disabled={isLoading}
-            {...props}
-        >
-            {isLoading && <Loader2 className="animate-spin" size={size === 'lg' ? 20 : 16} />}
-            {!isLoading && leftIcon && <span className="flex-shrink-0">{leftIcon}</span>}
-
+        <button disabled={isLoading} {...commonProps}>
+             {isLoading && <Loader2 className="animate-spin mr-2" size={size === 'lg' ? 20 : 16} />}
+            {!isLoading && leftIcon && <span className="mr-2 flex-shrink-0">{leftIcon}</span>}
             <span>{children}</span>
-
-            {!isLoading && rightIcon && <span className="flex-shrink-0">{rightIcon}</span>}
-        </Component>
+            {!isLoading && rightIcon && <span className="ml-2 flex-shrink-0">{rightIcon}</span>}
+        </button>
     );
 };
 
 export default Button;
+```
