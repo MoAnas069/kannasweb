@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import ScrollReveal from '../components/ui/ScrollReveal';
+import aboutImage from '../assets/images/about_facility.png';
 
 const About = () => {
     return (
@@ -28,7 +29,7 @@ const About = () => {
             <ScrollReveal className="w-full h-[60vh] bg-concrete overflow-hidden relative" delay={0.3}>
                 <div className="absolute inset-0 bg-graphite/10"></div>
                 <img
-                    src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2670&auto=format&fit=crop"
+                    src={aboutImage}
                     alt="Industrial Operations"
                     className="w-full h-full object-cover grayscale opacity-80"
                 />
