@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { motion, useSpring, useMotionValue } from 'framer-motion';
 
 const CursorGlow = () => {
     const [isDesktop, setIsDesktop] = useState(false);
-
-    const cursorX = useMotionValue(-100);
-    const cursorY = useMotionValue(-100);
-
-    const springConfig = { damping: 25, stiffness: 700 };
-    const cursorXSpring = useSpring(cursorX, springConfig);
-    const cursorYSpring = useSpring(cursorY, springConfig);
+    const [position, setPosition] = useState({ x: -100, y: -100 });
 
     useEffect(() => {
         // Only enable on desktop/non-touch to save performance
@@ -18,8 +11,9 @@ const CursorGlow = () => {
         }
 
         const moveCursor = (e) => {
-            cursorX.set(e.clientX - 100); // Center the 200px glow
-            cursorY.set(e.clientY - 100);
+            // Simple state update for now, performance will be lower but safe
+            // In production we'd use requestAnimationFrame
+            setPosition({ x: e.clientX - 100, y: e.clientY - 100 });
         };
 
         window.addEventListener('mousemove', moveCursor);
@@ -27,16 +21,15 @@ const CursorGlow = () => {
         return () => {
             window.removeEventListener('mousemove', moveCursor);
         };
-    }, [cursorX, cursorY]);
+    }, []);
 
     if (!isDesktop) return null;
 
     return (
-        <motion.div
-            className="fixed top-0 left-0 w-[200px] h-[200px] bg-steel/10 rounded-full blur-3xl pointer-events-none z-0 mix-blend-multiply"
+        <div
+            className="fixed top-0 left-0 w-[200px] h-[200px] bg-steel/10 rounded-full blur-3xl pointer-events-none z-0 mix-blend-multiply transition-transform duration-75 ease-out"
             style={{
-                translateX: cursorXSpring,
-                translateY: cursorYSpring,
+                transform: `translate(${position.x}px, ${position.y}px)`,
             }}
         />
     );
