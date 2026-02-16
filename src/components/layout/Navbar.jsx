@@ -4,6 +4,7 @@ import useScrollPosition from '../../hooks/useScrollPosition';
 import { Menu, X } from 'lucide-react';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import Button from '../ui/Button';
 
 const Navbar = () => {
     const scrollPosition = useScrollPosition();
@@ -68,14 +69,19 @@ const Navbar = () => {
                             {item.name}
                         </Link>
                     ))}
-                    <Link to="/contact" className={clsx(
-                        "transition-colors duration-500 px-6 py-2 text-sm font-medium tracking-wide",
-                        isScrolled
-                            ? "bg-graphite text-mist hover:bg-steel"
-                            : "bg-white text-graphite hover:bg-white/90"
-                    )}>
-                        PARTNER ACCESS
-                    </Link>
+                    <Button
+                        as="link"
+                        to="/contact"
+                        size="sm"
+                        className={clsx(
+                            "transition-colors duration-500",
+                            isScrolled
+                                ? "bg-graphite text-mist hover:bg-steel"
+                                : "bg-white text-graphite hover:bg-white/90"
+                        )}
+                    >
+                        Partner Access
+                    </Button>
                 </div>
 
                 {/* Mobile Menu Toggle */}

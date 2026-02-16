@@ -26,10 +26,16 @@ const CallToAction = () => {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="flex justify-center"
                 >
-                    <button className="group bg-graphite text-white pl-10 pr-8 py-6 flex items-center gap-4 hover:bg-steel transition-all duration-500">
-                        <span className="font-medium tracking-widest text-sm uppercase">Start a Conversation</span>
-                        <ArrowRight className="group-hover:translate-x-1 transition-transform duration-300" size={20} />
-                    </button>
+                    <Button
+                        variant="primary"
+                        size="lg"
+                        to="/contact"
+                        as="link"
+                        rightIcon={<ArrowRight size={20} />}
+                        className="bg-graphite text-white hover:bg-steel transition-all duration-500"
+                    >
+                        Start a Conversation
+                    </Button>
                 </motion.div>
             </div>
         </section>

@@ -227,10 +227,14 @@ export default function BicycleSequence() {
                         <h2 className="text-3xl md:text-6xl text-graphite mb-8 font-display font-medium">
                             Order Complexity.
                         </h2>
-                        <button className="pointer-events-auto group relative px-8 py-4 bg-white border border-graphite/10 rounded-full overflow-hidden hover:border-steel transition-all shadow-sm">
-                            <span className="relative z-10 text-xs text-graphite uppercase tracking-[0.2em] group-hover:text-white transition-colors duration-500">Configure Build</span>
-                            <div className="absolute inset-0 bg-graphite opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        </button>
+                        <Button
+                            variant="primary"
+                            size="lg"
+                            onClick={() => window.location.href = '/contact'}
+                            className="shadow-xl shadow-graphite/20"
+                        >
+                            Configure Build
+                        </Button>
                     </TextBeat>
 
                 </div>
